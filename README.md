@@ -2,7 +2,7 @@
 <div align="center">
     <a href="https://git.io/typing-svg">
         <img
-            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=25&pause=1000&color=32C7FF&center=true&vCenter=true&width=610&lines=Full+Stack+Web+Developer;PHP+%7C+Laravel+%7C+VueJS+%7C+NuxtJS;Crafting+Web+Applications+with+Passion;Building+User-Centered+Digital+Solutions"
+            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=25&pause=1000&color=32C7FF&background=000000&center=true&vCenter=true&width=610&lines=Full+Stack+Web+Developer;PHP+%7C+Laravel+%7C+VueJS+%7C+NuxtJS;Crafting+Web+Applications+with+Passion;Building+User-Centered+Digital+Solutions"
             alt="Typing SVG"
         />
     </a>
