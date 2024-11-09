@@ -43,6 +43,7 @@ Here are some of the cool projects I’ve worked on:
 - 🌐 **[JTR Holidays](https://jtrholidays.com):** Laravel & NuxtJS-based travel and tourism platform.
 - 🛒 **Inventory Management System:** A custom Laravel/PHP solution for managing bath soap factory inventory (Brand: Mehkaan).
 - 🔗 **[Portfolio](https://hussainali.me):** A fully responsive and dynamic personal portfolio built with NuxtJS, TailwindCSS, and Laravel.
+- For more projects (and other details) see my [portfolio website](https://hussainali.me)
 
 ---
 
