@@ -1,0 +1,90 @@
+# Regenerates the profile README cards (stats, languages, contributions,
+# achievements, contribution snake) so they never go stale.
+# Lives in the hussainalihussain/hussainalihussain repo.
+name: Profile stats
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # twice a day
+  workflow_dispatch: # "Run workflow" button
+  push:
+    branches: [main]
+    paths: [".github/workflows/profile-stats.yml"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-stats
+  cancel-in-progress: false
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      # Overview: profile header, activity, community, repositories
+      - uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: generated/metrics-overview.svg
+          template: classic
+          base: header, activity, community, repositories, metadata
+          repositories_affiliations: owner, organization_member
+          config_timezone: Asia/Karachi
+          config_twemoji: yes
+          committer_message: "chore: update overview card [skip ci]"
+
+      # Languages (indepth = counts code from commits, including private repos)
+      - uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: generated/metrics-languages.svg
+          base: ""
+          repositories_affiliations: owner, organization_member
+          plugin_languages: yes
+          plugin_languages_sections: most-used, recently-used
+          plugin_languages_details: bytes-size, percentage
+          plugin_languages_limit: 8
+          plugin_languages_ignored: html, css, scss, blade, shell, dockerfile, makefile, procfile
+          committer_message: "chore: update languages card [skip ci]"
+
+      # Contribution calendar (full year)
+      - uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: generated/metrics-calendar.svg
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          committer_message: "chore: update calendar card [skip ci]"
+
+      # Achievements (replaces the github-profile-trophy card)
+      - uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          filename: generated/metrics-achievements.svg
+          base: ""
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_threshold: B
+          plugin_achievements_limit: 0
+          committer_message: "chore: update achievements card [skip ci]"
+
+  snake:
+    runs-on: ubuntu-latest
+    steps:
+      # Contribution snake in the portfolio blue (#1A56DB)
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-light.svg?color_snake=#1A56DB&color_dots=#ebedf0,#c3d4f7,#8aaeef,#4f84e6,#1a56db
+            dist/snake-dark.svg?palette=github-dark&color_snake=#76A9FA&color_dots=#161b22,#1e3a8a,#1e40af,#1c64f2,#76a9fa
+
+      - uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+          commit_message: "chore: update contribution snake [skip ci]"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
