@@ -120,14 +120,6 @@ I like turning business requirements into clean database structures, APIs and wo
 
 ---
 
-## 🏆 Achievements
-
-<p align="center">
-  <img src="./generated/metrics-achievements.svg" alt="GitHub achievements" />
-</p>
-
----
-
 ## 🏢 Organization
 
 I also run **[@hussainalihussaino](https://github.com/hussainalihussaino)**, which I use for deployment pipelines and GitHub Actions automation for client and personal projects.

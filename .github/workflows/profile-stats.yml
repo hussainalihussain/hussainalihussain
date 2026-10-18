@@ -1,5 +1,5 @@
 # Regenerates the profile README cards (stats, languages, contributions,
-# achievements, contribution snake) so they never go stale.
+# contribution snake) so they never go stale.
 # Lives in the hussainalihussain/hussainalihussain repo.
 name: Profile stats
 
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Overview: profile header, activity, community, repositories
-      - uses: lowlighter/metrics@v3.34
+      - uses: lowlighter/metrics@latest
         continue-on-error: true
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -36,13 +36,14 @@ jobs:
           committer_message: "chore: update overview card [skip ci]"
 
       # Languages (most-used only; "recently-used" clones repos and broke the run)
-      - uses: lowlighter/metrics@v3.34
+      - uses: lowlighter/metrics@latest
         continue-on-error: true
         with:
           token: ${{ secrets.METRICS_TOKEN }}
           filename: generated/metrics-languages.svg
           base: ""
-          repositories_affiliations: owner, organization_member
+          repositories_batch: 25
+          plugin_languages_other: yes
           plugin_languages: yes
           plugin_languages_sections: most-used
           plugin_languages_details: bytes-size, percentage
@@ -51,7 +52,7 @@ jobs:
           committer_message: "chore: update languages card [skip ci]"
 
       # Contribution calendar (full year)
-      - uses: lowlighter/metrics@v3.34
+      - uses: lowlighter/metrics@latest
         continue-on-error: true
         with:
           token: ${{ secrets.METRICS_TOKEN }}
@@ -60,19 +61,6 @@ jobs:
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
           committer_message: "chore: update calendar card [skip ci]"
-
-      # Achievements (replaces the github-profile-trophy card)
-      - uses: lowlighter/metrics@v3.34
-        continue-on-error: true
-        with:
-          token: ${{ secrets.METRICS_TOKEN }}
-          filename: generated/metrics-achievements.svg
-          base: ""
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_threshold: B
-          plugin_achievements_limit: 0
-          committer_message: "chore: update achievements card [skip ci]"
 
   snake:
     runs-on: ubuntu-latest
